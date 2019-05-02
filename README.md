@@ -81,7 +81,7 @@ I used a Nextion display.  This is a powerful but complex module, you can create
 
 Using the editor I created the 3 pages I wanted with buttons and displays.  Then I wrote arduino code based on the built-in examples to communicate with the display.
 
- # Shut Up I Just Want to Make One
+ # I Want to Make One
  If this shows up on AliExpress I will be honored and offended!
  
   ## 1.  Program the Arduino
