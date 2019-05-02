@@ -12,8 +12,11 @@ and also occasionally in a long print the wifi would be lost and I would be unab
 
 So this project came about.  It allows you to make a display that costs less than the PanelDue with three screens:
   * Printing status
+  ![status image](ii.jpg)
   * Pre-heat bed and extruder
+  ![startup image](ff.jpg)
   * Pause print and load new filament
+  ![pause-load image](gg.jpg)
 
 You of course could implement more functions, these were what I wanted.  
 
@@ -23,7 +26,8 @@ So, if: you have the pricy Duet Wifi *and* you're too cheap to buy the PanelDue 
 
  ## Status
 The data from the duet wifi comes from a serial port.  There is a serial port for the PanelDue, and it uses gcode to communicate.
-All the data for my display comes with a single command.  `M408` causes the Duet to send a string with many status states.  
+All the data for my display comes with a single command.  `M408` causes the Duet to send a string with many status states. 
+
 Try it at the web interface to see what happens!
 
 This is the output of `M408` while my printer was running (it is JSON format):
@@ -63,9 +67,9 @@ Important info from this:
 So lets hook an arduino up to get the data and command the commands!
 
 # Arduino stuff
-The arduino is the middle-machine between the Duet and the screen.  It needs a serial port to talk to the Duet as well as a serial port to talk to the Nextion display.  I used an Adafruit Feather M0 data logger board for this project as I had one handy.  The M0 processor is very powerful (compared to an arduino Uno) and has the ability to create extra serial ports.  You can find the arduino code in this archive, I started with an example of how to configure another serial port and hacked away from there.
+The arduino is the middle-machine between the Duet and the screen.  It needs a serial port to talk to the Duet as well as a serial port to talk to the Nextion display.  I used an Adafruit Feather M0 data logger board for this project as I had one handy.  The M0 processor is very powerful (compared to an arduino Uno) and has the ability to create extra serial ports.  You can find the arduino code in this archive, I started with an example of how to configure another serial port and hacked away from there.  The data from the Duet is JSON formatted and the JSON library parses this nicely.  The Nextion display has many examples to copy.
 
-You need to turn off checksums for the PanelDue serial port using the command `M575 P1 S0` at the web interface initialization script.
+You need to turn off checksums for the PanelDue serial port on the Duet board because the arduino does not calculate checksums.  The command `M575 P1 S0` added initialization script will make this work.  If you ignore this the arduino will not communicate with the Duet!
 
 # Display
 I used a Nextion display.  This is a powerful but complex module, you can create very impressive GUI displays using the Nextion software on your PC, then program the display so it is easy to interface with a microncontroller.  Since the display is pre-configured, the microcontroller only has to deal with a small amount of data rather than constructing a display from scratch.  If you are new to these devices I recommend [Andreas Spiess's video #056](https://youtu.be/D-zgtylBKUc).
@@ -83,11 +87,11 @@ Using the editor I created the 3 pages I wanted with buttons and displays.  Then
   
   ## 3. Wire it up
   
-  Duet has a panelDue port with 5V, Gnd, Tx and Rx
+  Duet has a panelDue port with 5V, Gnd, Tx and Rx.
   The 5V and Gnd go to both the arduino and Nextion.
   
-  The Feather M0 is set up to use the regular serial port at Rx0 and Tx0 
-  The new serial port (SERCOM) is at TX=D10 and RX=D11 as in the [example](https://learn.adafruit.com/using-atsamd21-sercom-to-add-more-spi-i2c-serial-ports/creating-a-new-serial)
+  The Feather M0 is set up to use the regular serial port at Rx0 and Tx0.
+  The new serial port (SERCOM) is at TX=D10 and RX=D11 as in the [example](https://learn.adafruit.com/using-atsamd21-sercom-to-add-more-spi-i2c-serial-ports/creating-a-new-serial).
   
   Connect 
    * Duet Tx to Feather Rx0
@@ -98,5 +102,6 @@ Using the editor I created the 3 pages I wanted with buttons and displays.  Then
   
   ## 4. Print a case
   
-  I used [this one](https://www.adafruit.com/product/2796)
+  I used [this one](https://www.adafruit.com/product/2796).
  
+ ## Have fun with your printer!
