@@ -12,10 +12,15 @@ and also occasionally in a long print the wifi would be lost and I would be unab
 
 So this project came about.  It allows you to make a display that costs less than the PanelDue with three screens:
   * Printing status
+  
   ![status image](ii.jpg)
+  
   * Pre-heat bed and extruder
+  
   ![startup image](ff.jpg)
+  
   * Pause print and load new filament
+  
   ![pause-load image](gg.jpg)
 
 You of course could implement more functions, these were what I wanted.  
@@ -98,7 +103,7 @@ Using the editor I created the 3 pages I wanted with buttons and displays.  Then
    * Duet Rx to Feather Tx0
    * Nextion Tx to Feather D11
    * Nextion Rx to Feather D10
-  
+   * Power and Ground from Duet to Feather and Nextion
   
   ## 4. Print a case
   
