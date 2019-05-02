@@ -13,15 +13,15 @@ and also occasionally in a long print the wifi would be lost and I would be unab
 So this project came about.  It allows you to make a display that costs less than the PanelDue with three screens:
   * Printing status
   
-  ![status image](ii.jpg)
+  ![status image](page1.jpg)
   
   * Pre-heat bed and extruder
   
-  ![startup image](ff.jpg)
+  ![startup image](page2.jpg)
   
   * Pause print and load new filament
   
-  ![pause-load image](gg.jpg)
+  ![pause-load image](page3.jpg)
 
 You of course could implement more functions, these were what I wanted.  
 
