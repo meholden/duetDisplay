@@ -68,6 +68,35 @@ The arduino is the middle-machine between the Duet and the screen.  It needs a s
 You need to turn off checksums for the PanelDue serial port using the command `M575 P1 S0` at the web interface initialization script.
 
 # Display
-I used a Nextion display.  This is a powerful but complex module, you can create very impressive GUI displays using the Nextion software on your PC, then program the display so it is easy to interface with a microncontroller.  Since the display is pre-configured, the microcontroller only has to deal with a small amount of data rather than constructing a display from scratch.  If you are new to these devices I recommend [Andreas Speiess's video #056](https://youtu.be/D-zgtylBKUc).
+I used a Nextion display.  This is a powerful but complex module, you can create very impressive GUI displays using the Nextion software on your PC, then program the display so it is easy to interface with a microncontroller.  Since the display is pre-configured, the microcontroller only has to deal with a small amount of data rather than constructing a display from scratch.  If you are new to these devices I recommend [Andreas Spiess's video #056](https://youtu.be/D-zgtylBKUc).
 
-Using the editor I created the 3 pages I wanted with buttons and 
+Using the editor I created the 3 pages I wanted with buttons and displays.  Then I wrote arduino code based on the built-in examples to communicate with the display.
+
+ # Shut Up I Just Want to Make One
+ If this shows up on AliExpress I will be honored and offended!
+ 
+  ## 1.  Program the Arduino
+  Put the arduino code into the Feather M0 board.  I used the [Feather M0 Adalogger](https://www.adafruit.com/product/2796) because I had one.  I think that most of the M0 boards would work.
+  
+  ## 2.  Program the Nextion
+  Put the nextion code into the Nextion display.  I used the small 2.4 inch board.
+  
+  ## 3. Wire it up
+  
+  Duet has a panelDue port with 5V, Gnd, Tx and Rx
+  The 5V and Gnd go to both the arduino and Nextion.
+  
+  The Feather M0 is set up to use the regular serial port at Rx0 and Tx0 
+  The new serial port (SERCOM) is at TX=D10 and RX=D11 as in the [example](https://learn.adafruit.com/using-atsamd21-sercom-to-add-more-spi-i2c-serial-ports/creating-a-new-serial)
+  
+  Connect 
+   * Duet Tx to Feather Rx0
+   * Duet Rx to Feather Tx0
+   * Nextion Tx to Feather D11
+   * Nextion Rx to Feather D10
+  
+  
+  ## 4. Print a case
+  
+  I used [this one](https://www.adafruit.com/product/2796)
+ 
