@@ -67,7 +67,7 @@ Important info from this:
   * `M104` adjusts the hot end temperature
   * `M25` Pauses the print
   * `M24` Un-pauses the print
-  * `G1 E50 F60`  Feeds 50mm at 50 mm/min to load filament
+  * `G1 E50 F60`  Feeds 50mm at 60 mm/min to load filament
   
 So lets hook an arduino up to get the data and command the commands!
 
