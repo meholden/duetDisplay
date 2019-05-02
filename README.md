@@ -25,7 +25,7 @@ So this project came about.  It allows you to make a display that costs less tha
 
 You of course could implement more functions, these were what I wanted.  
 
-So, if: you have the pricy Duet Wifi *and* you're too cheap to buy the PanelDue *and* you are handy with arduinos, this is your project!
+So, if: you are rich enough to srping for the Duet Wifi *but* you're too cheap to buy the PanelDue *and* you are handy with arduinos, this is your project!
 
 # Duet Data
 
