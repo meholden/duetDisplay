@@ -21,9 +21,53 @@ So, if: you have the pricy Duet Wifi *and* you're too cheap to buy the PanelDue 
 
 # Duet Data
 
+ ## Status
 The data from the duet wifi comes from a serial port.  There is a serial port for the PanelDue, and it uses gcode to communicate.
-All the data for my display comes with a single command.  M408 causes the Duet to send a string with many status states.  
+All the data for my display comes with a single command.  `M408` causes the Duet to send a string with many status states.  
 Try it at the web interface to see what happens!
 
+This is the output of `M408` while my printer was running (it is JSON format):
+
+```
+{"status":"P",
+"heaters":[75.0,194.8,22.7],
+"active":[75.0,195.0,0.0],
+"standby":[0.0,0.0,0.0],
+"hstat":[2,2,0],
+"pos":[-35.248,-15.877,54.700],
+"sfactor":100.00,
+"efactor":[100.00,100.00],
+"babystep":0.000,
+"tool":0,
+"probe":"0",
+"fanPercent":[50.00,100.00,100.00,0.00,0.00,0.00,0.00,0.00,0.00],
+"fanRPM":0,"homed":[1,1,1],
+"fraction_printed":0.7257,
+"msgBox.mode":-1,
+"timesLeft":[7527.1,7728.8,7837.4]}
+```
+Important info from this:
+  * Temperatures from "heaters" (my printer has 3 probes: bed, hot end, enclosure)
+  * Temperature setpoints
+  * Percent done (0.7257 = 72.5%)
+  * Various estimates of time left (seconds)
+  
+  ## Other gcode I used ([see the list](https://reprap.org/wiki/G-code)):
+  * `G28` Homes the machine
+  * `M140` adjusts the bed temperature
+  * `M104` adjusts the hot end temperature
+  * `M25` Pauses the print
+  * `M24` Un-pauses the print
+  * `G1 E50 F60`  Feeds 50mm at 50 mm/min to load filament
+  
+So lets hook an arduino up to get the data and command the commands!
+
 # Arduino stuff
-First, you need to turn off checksums for the PanelDue serial port
+The arduino is the middle-machine between the Duet and the screen.  It needs a serial port to talk to the Duet as well as a serial port to talk to the Nextion display.  I used an Adafruit Feather M0 data logger board for this project as I had one handy.  The M0 processor is very powerful (compared to an arduino Uno) and has the ability to create extra serial ports.  You can find the arduino code in this archive, I started with an example of how to configure another serial port and hacked away from there.
+
+You need to turn off checksums for the PanelDue serial port using the command `M575 P1 S0` at the web interface initialization script.
+
+# Display
+I used a Nextion display.  This is a powerful but complex module, you can create very impressive GUI displays using the Nextion software on your PC, then program the display so it is easy to interface with a microncontroller.  Since the display is pre-configured, the microcontroller only has to deal with a small amount of data rather than constructing a display from scratch.  If you are new to these devices I recommend [Andreas Speiess's video #056](https://youtu.be/D-zgtylBKUc).
+
+Using the editor I created the 3 pages I wanted with buttons and 
